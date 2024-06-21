@@ -28,8 +28,24 @@ public class OneMillionVthread {
 
         Instant begin = Instant.now();
 
+        /*
+        Separation of Concerns:
+            Starting Threads: The first loop ensures that all threads are started as soon as possible. 
+                              This is important because the threads may perform independent or interdependent tasks that can start concurrently without waiting for each other.
+            Joining Threads: The second loop waits for all threads to complete. This ensures that the main program does not proceed until all threads have finished their tasks.
+        Concurrency Efficiency:
+            By starting all threads in the first loop, you maximize concurrency.
+            All threads can begin executing their tasks concurrently rather than sequentially waiting for the previous thread to complete (which would happen if starting and joining were done in a single loop).
+        Deadlock Avoidance:
+            Starting and joining threads in the same loop could lead to deadlock scenarios, especially if the threads depend on each other in some way.
+            By starting all threads first, you ensure that all threads are running before any of them are joined.
+        */
+
         for(var thread : threads) {
             thread.start();
+        }
+
+        for(var thread : threads) {
             thread.join();
         }
 
