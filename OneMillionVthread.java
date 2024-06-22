@@ -61,6 +61,8 @@ public class OneMillionVthread {
 
         System.out.println("---------------");
         System.out.printf("Platform Threads: %s%n", pThreadNames.size());
+        long usedMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+        System.out.printf("Used Memory: %d kB%n", usedMemory / 1024);
     }
 
     private static String readWorkerName() {
